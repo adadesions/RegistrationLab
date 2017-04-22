@@ -30,20 +30,43 @@ struct mouseParams{
 
 void myMouseCallback(int event, int x, int y, int flags, void *userdata)
 {
+	mouseParams* mp = (mouseParams*)userdata;
 	if(event == EVENT_LBUTTONDOWN)
 	{
-		mouseParams* mp = (mouseParams*)userdata;
+		if(mp->pst.size() >= 8){
+			for(int i=0; i<mp->pst.size(); i++)
+			{
+				int start, end;
+				start = i;
+				end = i + 1;
+				if( i+1 == mp->pst.size())
+				{
+					end = 0;
+				}
+				line(mp->img, mp->pst[start], mp->pst[end], Scalar(255,0,0), 2);
+			}
+			imshow(mp->windowName, mp->img);
+			return;
+		}
 		Mat img(mp->img);
 		Point2f center(x,y); 
 		mp->pst.push_back(center);
 		int rad = 10;
 		Scalar red(0, 0, 255);
 		Scalar blue(255, 0, 0);
-		int thickness = 2;
+		int thickness = -2;
 		string strPoint = "( " + to_string(center.x) + ", " + to_string(center.y) + ")";
 		circle(img, center, rad, red, thickness);
 		//putText(img, strPoint, Point(center.x, center.y-3), FONT_HERSHEY_SIMPLEX, 1, blue, 4);
 		cout << "Click on " + mp->windowName + " : " << center << endl;
+		imshow(mp->windowName, img);
+	}
+	else if( event == EVENT_MOUSEMOVE && flags == EVENT_FLAG_CTRLKEY )
+	{
+		Mat img(mp->img);
+		int rad = 2;
+		Scalar green(0, 255, 0);
+		circle(img, Point(x,y), rad, green, -1);
 		imshow(mp->windowName, img);
 	}
 }
