@@ -30,4 +30,11 @@
 *.app
 
 # Build Dir
-build
+build/
+
+# CMake Files
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+Makefile
+
