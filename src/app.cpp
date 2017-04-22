@@ -30,6 +30,10 @@ struct mouseParams{
 
 void myMouseCallback(int event, int x, int y, int flags, void *userdata)
 {
+	Scalar red(0,0,255);
+	Scalar blue(255,0,0);
+	Scalar green(0,255,0);
+
 	mouseParams* mp = (mouseParams*)userdata;
 	if(event == EVENT_LBUTTONDOWN)
 	{
@@ -43,7 +47,7 @@ void myMouseCallback(int event, int x, int y, int flags, void *userdata)
 				{
 					end = 0;
 				}
-				line(mp->img, mp->pst[start], mp->pst[end], Scalar(255,0,0), 2);
+				line(mp->img, mp->pst[start], mp->pst[end], blue, 2);
 			}
 			imshow(mp->windowName, mp->img);
 			return;
@@ -52,8 +56,6 @@ void myMouseCallback(int event, int x, int y, int flags, void *userdata)
 		Point2f center(x,y); 
 		mp->pst.push_back(center);
 		int rad = 10;
-		Scalar red(0, 0, 255);
-		Scalar blue(255, 0, 0);
 		int thickness = -2;
 		string strPoint = "( " + to_string(center.x) + ", " + to_string(center.y) + ")";
 		circle(img, center, rad, red, thickness);
@@ -61,12 +63,11 @@ void myMouseCallback(int event, int x, int y, int flags, void *userdata)
 		cout << "Click on " + mp->windowName + " : " << center << endl;
 		imshow(mp->windowName, img);
 	}
-	else if( event == EVENT_MOUSEMOVE && flags == EVENT_FLAG_CTRLKEY )
+	if( event == EVENT_MOUSEMOVE && flags == EVENT_FLAG_CTRLKEY )
 	{
 		Mat img(mp->img);
 		int rad = 2;
-		Scalar green(0, 255, 0);
-		circle(img, Point(x,y), rad, green, -1);
+		circle(img, Point(x,y), rad, brush, -1);
 		imshow(mp->windowName, img);
 	}
 }
