@@ -1,0 +1,3 @@
+/Users/adacodeio/GitHub/RegistrationLab/CMakeFiles/rebuild_cache.dir
+/Users/adacodeio/GitHub/RegistrationLab/CMakeFiles/edit_cache.dir
+/Users/adacodeio/GitHub/RegistrationLab/CMakeFiles/RegistrationLab.dir
